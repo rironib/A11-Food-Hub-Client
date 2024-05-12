@@ -1,8 +1,13 @@
+import {Helmet} from "react-helmet-async";
+
 const Register = () => {
     return (
-        <div>
+        <>
+            <Helmet>
+                <title>Food Hub | Register</title>
+            </Helmet>
 
-        </div>
+        </>
     );
 };
 
