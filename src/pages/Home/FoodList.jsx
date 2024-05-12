@@ -1,15 +1,13 @@
-import FoodCard from './FoodCard.jsx'
+import Card from "@/components/Card.jsx";
 import PropTypes from "prop-types";
 import {RiLayoutGrid2Fill, RiLayoutGridFill} from "react-icons/ri";
 import {Button} from "@/components/ui/button.jsx";
 import {useState} from "react";
 
-const FoodCards = ({foods}) => {
+const FoodList = ({foods}) => {
     const [grid, setGrid] = useState(false);
 
-    const handleGrid = () => {
-        setGrid(!grid);
-    }
+    const handleGrid = () => setGrid(!grid);
 
     return (
         <div className='mb-20'>
@@ -20,31 +18,18 @@ const FoodCards = ({foods}) => {
             <div className='flex justify-end gap-4 my-4 text-2xl'>
                 <Button onClick={handleGrid} disabled={`${grid ? 'disabled' : ''}`}><RiLayoutGridFill /></Button>
                 <Button onClick={handleGrid} disabled={`${!grid ? 'disabled' : ''}`}><RiLayoutGrid2Fill /></Button>
-                {/*{*/}
-                {/*    grid ? (*/}
-                {/*        <>*/}
-                {/*            <Button disabled><RiLayoutGridFill /></Button>*/}
-                {/*            <Button onClick={handleGrid}><RiLayoutGrid2Fill /></Button>*/}
-                {/*        </>*/}
-                {/*    ) : (*/}
-                {/*        <>*/}
-                {/*            <Button onClick={handleGrid}><RiLayoutGridFill /></Button>*/}
-                {/*            <Button disabled><RiLayoutGrid2Fill /></Button>*/}
-                {/*        </>*/}
-                {/*    )*/}
-                {/*}*/}
             </div>
             <div className={`grid ${grid ? 'grid-cols-2' : 'grid-cols-3'} gap-5`}>
                 {
-                    foods.map(food => <FoodCard key={food.id} food={food} />)
+                    foods.map(food => <Card key={food.id} food={food} />)
                 }
             </div>
         </div>
     );
 };
 
-FoodCards.propTypes = {
+FoodList.propTypes = {
     foods: PropTypes.array.isRequired
 }
 
-export default FoodCards;
+export default FoodList;

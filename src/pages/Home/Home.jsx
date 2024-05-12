@@ -1,6 +1,6 @@
 import {Helmet} from "react-helmet-async";
 import Banner from "@/pages/Home/Banner.jsx";
-import FoodCards from "@/pages/Home/FoodCards.jsx";
+import FoodList from "@/pages/Home/FoodList.jsx";
 import {useLoaderData} from "react-router-dom";
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
             </Helmet>
 
             <Banner/>
-            <FoodCards foods={foods}/>
+            <FoodList foods={foods}/>
         </>
     );
 };
