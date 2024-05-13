@@ -1,11 +1,23 @@
-import {Helmet} from "react-helmet-async";
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import useAuth from "@/hooks/useAuth.jsx";
-import {toast} from "react-toastify";
 import axios from "axios";
+import {
+    RiMailLine,
+    RiKeyLine,
+    RiEyeLine,
+    RiEyeOffLine,
+    RiUser3Line,
+    RiImageLine,
+} from "react-icons/ri";
+import {useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Helmet} from "react-helmet-async";
+import useAuth from "@/hooks/useAuth.jsx";
+
 
 const Register = () => {
     const {createUser, updateUser} = useAuth();
+    const [showPass, setShowPass] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -17,38 +29,17 @@ const Register = () => {
         const photoURL = form.get('photo');
         const email = form.get('email');
         const password = form.get('password');
-        console.log(name, email, password);
 
         // Create user
         createUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                // console.log(user);
-                const uid = user?.uid;
-                const creationTime = user?.metadata?.creationTime;
-                const lastSignInTime = user?.metadata?.lastSignInTime;
-
-                const newUser = {uid, email, displayName, photoURL, creationTime, lastSignInTime};
-
-                // Get access token
-                axios.post('https://car-doctor-api.vercel.app/jwt', email, {withCredentials: true})
-                    .then(res => console.log(res.data))
-                    .catch(error => console.error(error));
-
-                // Using axios
-                axios.post('https://espresso-emporium-server-mu.vercel.app/register', newUser)
-                    .then((data) => {
-                        const result = data.data;
-                        if (result.insertedId) {
-                            navigate(location?.state ? location.state : '/');
-                            toast.success("Account created successfully");
-                        }
-                    })
-
+            .then(() => {
                 updateUser(displayName, photoURL)
-                    .then(() => {} )
-                    .catch(() => {
-                        return null;
+                    .then(() => {
+                        navigate(location?.state ? location.state : '/');
+                        toast.success("Account created successfully");
+                    } )
+                    .catch((error) => {
+                        toast.error(error.message);
                     });
             })
             .catch((error) => {
@@ -60,46 +51,46 @@ const Register = () => {
                 toast.error(error.message);
             });
     }
-
     return (
         <>
             <Helmet>
-                <title>Food Hub | Register</title>
+                <title>Register</title>
             </Helmet>
-            <div className='h-full my-12 mx-auto max-w-[560px] grid gap-4'>
-                <div className='p-12 border rounded-xl'>
-                    <h2 className='font-bold text-2xl text-center'>Registration</h2>
-                    <form onSubmit={handleRegister} className='flex flex-col gap-6 mt-6'>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Name</span>
-                            <input type="text" name='name' className='p-3 border rounded-lg outline-none'
-                                   placeholder='Enter your full name' required/>
+            <main className='max-w-[480px] w-full p-4 mx-auto my-8'>
+                <h1 className='font-lexend font-bold text-3xl mb-6 text-center'>Registration</h1>
+                <form onSubmit={handleRegister}>
+                    <div className='flex flex-col gap-4'>
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiUser3Line className='opacity-80'/>
+                            <input type="text" name='name' className="w-full outline-none" placeholder="Enter your name" required/>
                         </label>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Email</span>
-                            <input type="text" name='email' className='p-3 border rounded-lg outline-none'
-                                   placeholder='Enter your email address' required/>
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiMailLine className='opacity-80'/>
+                            <input type="email" name='email' className="w-full outline-none" placeholder="Enter your email" required/>
                         </label>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Avatar</span>
-                            <input type="text" name='photo' className='p-3 border rounded-lg outline-none'
-                                   placeholder='Enter your photo link' required/>
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiImageLine className='opacity-80'/>
+                            <input type="url" name='photo' className="w-full outline-none" placeholder="Photo Link" required/>
                         </label>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Password</span>
-                            <input type='password' name='password'
-                                   className='p-3 border rounded-lg outline-none' placeholder='Enter your password'
-                                   required/>
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiKeyLine className='opacity-80'/>
+                            <input type={showPass ? 'text' : 'password'} name='password' className="w-full outline-none" placeholder="Password" required/>
+                            <span>
+                                {
+                                    showPass ? <RiEyeLine onClick={() => setShowPass(!showPass)}
+                                                          className='cursor-pointer opacity-80'/> :
+                                        <RiEyeOffLine onClick={() => setShowPass(!showPass)}
+                                                      className='cursor-pointer opacity-80'/>
+                                }
+                            </span>
                         </label>
-                        <button className='bg-slate-900 py-3 font-medium text-white rounded-lg outline-none'>
-                            Sign up
-                        </button>
-                    </form>
-                    <p className='mt-8 text-center text-[#737373]'>
-                        Have an account? <Link to='/login' className='font-medium text-slate-800'>Login</Link>
-                    </p>
-                </div>
-            </div>
+                        <button className='w-full bg-slate-800 py-3 font-semibold text-gray-300 rounded-lg'>Sign up</button>
+                        <div className='mt-2 text-center'>
+                            Already have an account? <Link to='/login' className='text-blue-600 text-center'>Login</Link>
+                        </div>
+                    </div>
+                </form>
+            </main>
         </>
     );
 };
