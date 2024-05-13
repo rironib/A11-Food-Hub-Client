@@ -1,14 +1,14 @@
-import {Helmet} from "react-helmet-async";
-import {RiGithubFill, RiGoogleFill} from "react-icons/ri";
+import {RiMailFill, RiKeyFill, RiGoogleFill, RiGithubFill, RiEyeLine, RiEyeOffLine} from "react-icons/ri";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {Button} from "@/components/ui/button.jsx";
-import {toast} from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useState} from "react";
+import {Helmet} from "react-helmet-async";
 import useAuth from "@/hooks/useAuth.jsx";
-import axios from "axios";
 
 const Login = () => {
+    const [showPass, setShowPass] = useState(false);
     const {signIn, signInWithGoogle, signInWithGithub} = useAuth();
-
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -19,27 +19,9 @@ const Login = () => {
         const password = form.get('password');
 
         signIn(email, password)
-            .then((userCredential) =>
-                {
-                    const user = userCredential.user;
-                    const uid = user?.uid;
-                    const displayName = user?.displayName;
-                    const photoURL = user?.photoURL;
-                    const creationTime = user?.metadata?.creationTime;
-                    const lastSignInTime = user?.metadata?.lastSignInTime;
-                    const updateUser = {uid, email, displayName, photoURL, creationTime, lastSignInTime};
-
-                    // Get access token
-                    axios.post('https://car-doctor-api.vercel.app/jwt', email, {withCredentials: true})
-                        .then(res => console.log(res.data))
-                        .catch(error => console.error(error));
-
-                    // Using axios
-                    axios.patch('https://espresso-emporium-server-mu.vercel.app/user', updateUser)
-                        .then(() => {
-                            navigate(location?.state ? location.state : '/');
-                            toast.success('Successfully logged in!');
-                        })
+            .then(() => {
+                    navigate(location?.state ? location.state : '/');
+                    toast.success('Successfully logged in!');
                 }
             )
             .catch((error) => {
@@ -50,30 +32,6 @@ const Login = () => {
                 }
             })
     }
-
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     const form = new FormData(e.currentTarget);
-    //     const email = form.get('email');
-    //     const password = form.get('password');
-    //     // console.log(email, password);
-    //
-    //     signIn(email, password)
-    //         .then(userCredential => {
-    //             const loggedUser = userCredential.user;
-    //             const user = {email};
-    //             // console.log(user);
-    //
-    //             // Get access token
-    //             //     axios.post('https://car-doctor-api.vercel.app/jwt', user, {withCredentials: true})
-    //             //         .then(res => console.log(res.data))
-    //             //         .catch(error => console.error(error));
-    //
-    //             navigate(location?.state ? location.state : '/');
-    //             toast.success('User logged in successfully.');
-    //         })
-    //         .catch(error => toast.error(error));
-    // }
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -97,42 +55,48 @@ const Login = () => {
             })
     }
 
-
     return (
         <>
             <Helmet>
-                <title>Food Hub | Login</title>
+                <title>Login</title>
             </Helmet>
-            <div className='h-full my-12 mx-auto max-w-[560px] grid gap-4'>
-                <div className='p-12 border rounded-xl'>
-                    <h2 className='font-bold text-2xl text-center'>Login</h2>
-                    <form onSubmit={handleLogin} className='flex flex-col gap-4 my-6'>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Email</span>
-                            <input type="text" name='email' className='p-3 border rounded-lg outline-none'
-                                   placeholder='Your email' required/>
-                        </label>
-                        <label className='flex flex-col gap-2'>
-                            <span className='font-medium text-gray-600'>Password</span>
-                            <input type='password' name='password'
-                                   className='p-3 border rounded-lg outline-none' placeholder='Your password'
+            <main className='max-w-[480px] w-full p-4 mx-auto my-12'>
+                <h1 className='font-lexend font-bold text-3xl mb-6 text-center'>Login</h1>
+                <form onSubmit={handleLogin}>
+                    <div className='flex flex-col gap-4 mb-6'>
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiMailFill className='opacity-70'/>
+                            <input type="text" name='email' className="w-full outline-none" placeholder="Email"
                                    required/>
                         </label>
-                        <button className='bg-slate-900 py-3 font-medium text-white rounded-lg outline-none'>
-                            Login
+                        <label className="flex items-center gap-2 p-3 border rounded-lg">
+                            <RiKeyFill className='opacity-70'/>
+                            <input type={showPass ? 'text' : 'password'} name='password' className="w-full outline-none" placeholder="Password" required/>
+                            <span>
+                                {
+                                    showPass ? <RiEyeLine onClick={() => setShowPass(!showPass)} className='cursor-pointer opacity-80'/> :
+                                        <RiEyeOffLine onClick={() => setShowPass(!showPass)} className='cursor-pointer opacity-80'/>
+                                }
+                            </span>
+                        </label>
+                        <button className='w-full bg-slate-900 p-3 font-semibold text-white rounded-lg'>Login
                         </button>
-                    </form>
-                    <div
-                        className='w-full grid grid-cols-2 gap-4 *:text-xl'>
-                        <Button onClick={handleGoogleSignIn}><RiGoogleFill/></Button>
-                        <Button onClick={handleGithubSignIn}><RiGithubFill/></Button>
                     </div>
-                    <p className='mt-8 text-center text-[#737373]'>
-                        Don't have an account? <Link to='/register' className='font-medium text-slate-800'>Sign
-                        up</Link>
-                    </p>
+                </form>
+
+                <div className='grid sm:grid-cols-2 gap-2'>
+                    <button onClick={handleGoogleSignIn}
+                            className="w-full p-3 flex justify-center items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white border-0 rounded-lg">
+                        <RiGoogleFill className='text-lg'/> Google Login
+                    </button>
+                    <button onClick={handleGithubSignIn}
+                            className="w-full p-3 flex justify-center items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white hover:text-white border-0 rounded-lg">
+                        <RiGithubFill className='text-lg'/> GitHub Login
+                    </button>
                 </div>
-            </div>
+                <p className='mt-4 text-center'>Don’t have an account? <Link to='/register' className='text-blue-600 text-center'>Register</Link>
+                </p>
+            </main>
         </>
     );
 };
