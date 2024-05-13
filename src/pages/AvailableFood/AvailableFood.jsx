@@ -1,8 +1,73 @@
-const AvailableFood = () => {
-    return (
-        <div>
+import {Helmet} from "react-helmet-async";
+import {useLoaderData} from "react-router-dom";
+import Card from "@/components/Card.jsx";
+import {Button} from "@/components/ui/button.jsx";
+import {RiSortAsc, RiSortDesc} from "react-icons/ri";
+import {useState} from "react";
 
-        </div>
+const AvailableFood = () => {
+    const foods = useLoaderData();
+    const [items, setItems] = useState(foods);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = e => {
+        setSearchTerm(e.target.value);
+        const results = foods.filter(food => food.name.toLowerCase().includes(e.target.value.toLowerCase()));
+        setItems(results);
+    }
+
+    const [asc, setAsc] = useState(false);
+    const [dsc, setDsc] = useState(false);
+
+    const handleSorting = (order) => {
+        if (order === 'asc') {
+            setAsc(true);
+            setDsc(false);
+            const sortedItems = items.slice().sort((a, b) => new Date(a.expire) - new Date(b.expire));
+            setItems(sortedItems);
+        } else if (order === 'dsc') {
+            setAsc(false);
+            setDsc(true);
+            const sortedItems = items.slice().sort((a, b) => new Date(b.expire) - new Date(a.expire));
+            setItems(sortedItems);
+        }
+    };
+
+    return (
+        <>
+            <Helmet>
+                <title>Food Hub | Available Food</title>
+            </Helmet>
+            <div className='mt-12 mb-20'>
+                <div className='lg:w-1/2 mx-auto text-center font-lexend'>
+                    <h2 className='mb-4 text-3xl font-bold'>Available Foods</h2>
+                    <p className='text-slate-700 mb-8'>Explore mouthwatering Available Foods - a curated selection of
+                        culinary delights awaiting your discovery and enjoyment.</p>
+                </div>
+                <div className='flex justify-between my-4'>
+                    <input
+                        type="text"
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                        className='p-3 border rounded-lg outline-none'
+                    />
+                    <div className='flex justify-end gap-4 text-2xl'>
+                        <Button onClick={() => handleSorting('asc')} disabled={asc}><RiSortAsc/></Button>
+                        <Button onClick={() => handleSorting('dsc')} disabled={dsc}><RiSortDesc/></Button>
+                    </div>
+                </div>
+                <div className={`grid grid-cols-3 gap-5`}>
+                    {
+                        items.map(food => {
+                            if (food.status === 'Available') {
+                                return <Card key={food._id} food={food}/>
+                            }
+                        })
+                    }
+                </div>
+            </div>
+        </>
     );
 };
 
