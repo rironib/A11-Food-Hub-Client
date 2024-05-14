@@ -5,21 +5,29 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel"
 
+import cover1 from '/slider/image-1.jpg';
+import cover2 from '/slider/image-2.jpg';
+import cover3 from '/slider/image-3.jpg';
+import cover4 from '/slider/image-4.jpg';
+import cover5 from '/slider/image-5.jpg';
+import cover6 from '/slider/image-6.jpg';
+
 const Slider = () => {
     return (
         <Carousel
-            className='mt-8 mb-20'
+            className='mt-8 mb-20 shadow rounded-xl'
             plugins={[
             Autoplay({
                 delay: 2000,
             }),
         ]}>
-            <CarouselContent className='h-[82dvh] -ml-0 rounded-xl *:bg-cover *:bg-no-repeat *:bg-center *:rounded-xl *:pl-0'>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/ribbanef/img81602.whqc_2044x1362q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/0rtjeean/img85503.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/fzgozlyf/img81384.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/dpiigoaq/img85513.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/wzbdfu0k/img81553.whqc_1320x880q80.webp)'}}></CarouselItem>
+            <CarouselContent className='h-[70dvh] -ml-0 rounded-xl *:bg-contain *:bg-no-repeat *:bg-center *:rounded-xl *:pl-0'>
+                <CarouselItem style={{ backgroundImage: `url(${cover1})` }}></CarouselItem>
+                <CarouselItem style={{ backgroundImage: `url(${cover2})` }}></CarouselItem>
+                <CarouselItem style={{ backgroundImage: `url(${cover3})` }}></CarouselItem>
+                <CarouselItem style={{ backgroundImage: `url(${cover4})` }}></CarouselItem>
+                <CarouselItem style={{ backgroundImage: `url(${cover5})` }}></CarouselItem>
+                <CarouselItem style={{ backgroundImage: `url(${cover6})` }}></CarouselItem>
             </CarouselContent>
         </Carousel>
 
