@@ -1,19 +1,25 @@
 import {Helmet} from "react-helmet-async";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.jsx";
 import useAuth from "@/hooks/useAuth.jsx";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useQuery} from "@tanstack/react-query";
+import Loading from "@/components/Loading.jsx";
 
 const MyRequest = () => {
     const {user} = useAuth();
-    const [items, setItems] = useState([]);
-    console.log(items)
 
     const url = `https://food-hub-api-orpin.vercel.app/requests?email=${user?.email}`;
-    useEffect(() => {
-        axios.get(url)
-        .then(res => setItems(res.data))
-    }, [url]);
+
+    const {isPending, data : items} = useQuery({
+        queryKey: ['food'],
+        queryFn: async () => {
+            const res = await fetch(url);
+            return res.json();
+        }
+    })
+
+    if (isPending) {
+        return <Loading/>
+    }
 
     return (
         <>
@@ -35,9 +41,8 @@ const MyRequest = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {items.map((food) => {
-                                if (food.userEmail === user.email) {
-                                    return (
+                            {
+                                items?.map((food) => (
                                         <TableRow key={food._id}>
                                             <TableCell>{food.name}</TableCell>
                                             <TableCell>{food.quantity}</TableCell>
@@ -46,10 +51,9 @@ const MyRequest = () => {
                                             <TableCell>{food.reqDate}</TableCell>
                                             <TableCell>{food.donorName}</TableCell>
                                         </TableRow>
-                                    );
-                                }
-                                return null;
-                            })}
+                                    )
+                                )
+                            }
                         </TableBody>
                     </Table>
                 </div>
