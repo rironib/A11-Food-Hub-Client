@@ -24,12 +24,16 @@ const Modal = ({food}) => {
         const form = e.target;
         const note = form.note.value;
 
-        const newRequest = {id: _id, name, image, donorName, donorEmail, quantity: 1, userEmail : user.email, reqDate : timestamp, location, expire, note};
+        const newRequest = {id: _id, name, image, donorName, donorEmail, quantity, userEmail : user.email, reqDate : timestamp, location, expire, note};
 
         axios.post('https://food-hub-api-orpin.vercel.app/requests/add', newRequest)
             .then(() => {
-                navigate('/request');
-                toast.success('Food Request Successful!');
+                axios.put(`https://food-hub-api-orpin.vercel.app/foods/status/${_id}`, {status: 'Requested'})
+                    .then(() => {
+                        navigate('/request');
+                        toast.success('Food Request Successful!');
+                    })
+                    .catch(error => toast.error(error));
             })
             .catch(error => toast.error(error));
     }
@@ -40,7 +44,7 @@ const Modal = ({food}) => {
 
     return (
         <>
-            <Button onClick={handleRequest}>Request</Button>
+            <Button onClick={handleRequest} disabled={food.status !== 'Available' && 'disabled'}>Request</Button>
             {isOpen && (
                 <div className='fixed z-20 inset-0 bg-slate-900 bg-opacity-70 flex flex-col items-center justify-center p-4'>
                     <div className='lg:w-3/5 bg-white p-6 lg:px-12 rounded-xl'>
