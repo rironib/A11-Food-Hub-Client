@@ -7,12 +7,13 @@ import {useState} from "react";
 
 const AvailableFood = () => {
     const foods = useLoaderData();
-    const [items, setItems] = useState(foods);
+    const filteredFoods = foods.filter(food => food.status === 'Available');
+    const [items, setItems] = useState(filteredFoods);
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = e => {
         setSearchTerm(e.target.value);
-        const results = foods.filter(food => food.name.toLowerCase().includes(e.target.value.toLowerCase()));
+        const results = filteredFoods.filter(food => food.name.toLowerCase().includes(e.target.value.toLowerCase()));
         setItems(results);
     }
 
@@ -59,11 +60,7 @@ const AvailableFood = () => {
                 </div>
                 <div className={`grid grid-cols-3 gap-5`}>
                     {
-                        items.map(food => {
-                            if (food.status === 'Available') {
-                                return <Card key={food._id} food={food}/>
-                            }
-                        })
+                        items.map(food => <Card key={food._id} food={food}/>)
                     }
                 </div>
             </div>
