@@ -11,8 +11,6 @@ const UpdateFood = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    console.log(user.email, food.donorEmail, id, food._id)
-
     useEffect(() => {
         if (food._id !== id || food.donorEmail !== user.email) {
             navigate('/manage')
@@ -40,6 +38,7 @@ const UpdateFood = () => {
             .then((res) => {
                 const result = res.data;
                 if(result.modifiedCount  > 0) {
+                    navigate('/manage');
                     toast.success('Food updated successfully!');
                 } else {
                     toast.error(result.error.message);

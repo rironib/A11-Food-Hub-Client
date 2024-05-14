@@ -20,8 +20,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home/>,
-                loader: () => fetch('https://food-hub-api-orpin.vercel.app/foods')
+                element: <Home/>
             },
             {
                 path: '/login',
@@ -43,7 +42,6 @@ const router = createBrowserRouter([
             {
                 path: '/manage',
                 element: <PrivateRoute><ManageFood/></PrivateRoute>,
-                loader: () => fetch('https://food-hub-api-orpin.vercel.app/foods')
             },
             {
                 path: '/update/:id',
@@ -53,7 +51,6 @@ const router = createBrowserRouter([
             {
                 path: '/request',
                 element: <PrivateRoute><MyRequest/></PrivateRoute>,
-                loader: () => fetch('https://food-hub-api-orpin.vercel.app/requsts')
             },
             {
                 path: '/food/:id',

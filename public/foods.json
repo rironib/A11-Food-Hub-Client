@@ -1,19 +1,18 @@
 [
   {
-    "id": 1,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Biryani",
-    "donator": {
-      "avatar": "/user.png",
-      "user": "Ali Hasan"
-    },
+    "donorName": "RONiB",
+    "donorEmail": "dev.ronib@gmail.com",
+    "donorAvatar": "https://lh3.googleusercontent.com/-WTZcufLv4nk/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkn6VrMT2AqtaaCQ_Jx_Yit0YfdXyQ/photo.jpg",
     "quantity": 10,
     "location": "Dhanmondi, Dhaka",
-    "expire": "2024-05-15T18:00:00",
+    "expire": "15.05.2024",
     "note": "Spicy, with extra chicken."
   },
   {
-    "id": 2,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Pitha",
     "donator": {
@@ -22,11 +21,11 @@
     },
     "quantity": 20,
     "location": "Chittagong",
-    "expire": "2024-05-14T12:00:00",
+    "expire": "14.05.2024",
     "note": "Traditional winter snack."
   },
   {
-    "id": 3,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Khichuri",
     "donator": {
@@ -35,11 +34,11 @@
     },
     "quantity": 15,
     "location": "Gulshan, Dhaka",
-    "expire": "2024-05-16T14:00:00",
+    "expire": "16.05.2024",
     "note": "Mildly spiced, with lentils and rice."
   },
   {
-    "id": 4,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Hilsha Fish Curry",
     "donator": {
@@ -48,11 +47,11 @@
     },
     "quantity": 8,
     "location": "Rajshahi",
-    "expire": "2024-05-13T20:00:00",
+    "expire": "13.05.2024",
     "note": "Authentic Bengali delicacy."
   },
   {
-    "id": 5,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Chapati with Chicken Curry",
     "donator": {
@@ -61,11 +60,11 @@
     },
     "quantity": 12,
     "location": "Khulna",
-    "expire": "2024-05-15T16:00:00",
+    "expire": "15.05.2024",
     "note": "Freshly made, with boneless chicken."
   },
   {
-    "id": 6,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Samosa",
     "donator": {
@@ -74,11 +73,11 @@
     },
     "quantity": 30,
     "location": "Barisal",
-    "expire": "2024-05-14T10:00:00",
+    "expire": "14.05.2024",
     "note": "Crispy pastry filled with spiced potatoes."
   },
   {
-    "id": 7,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Halwa",
     "donator": {
@@ -87,11 +86,11 @@
     },
     "quantity": 25,
     "location": "Sylhet",
-    "expire": "2024-05-16T12:00:00",
+    "expire": "16.05.2024",
     "note": "Sweet dessert made with semolina and sugar."
   },
   {
-    "id": 8,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Shingara",
     "donator": {
@@ -100,11 +99,11 @@
     },
     "quantity": 40,
     "location": "Rangpur",
-    "expire": "2024-05-13T15:00:00",
+    "expire": "13.05.2024",
     "note": "Deep-fried pastry stuffed with spiced vegetables."
   },
   {
-    "id": 9,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Rasgulla",
     "donator": {
@@ -113,11 +112,11 @@
     },
     "quantity": 20,
     "location": "Cox's Bazar",
-    "expire": "2024-05-15T17:00:00",
+    "expire": "17.05.2024",
     "note": "Soft, spongy dessert soaked in sugar syrup."
   },
   {
-    "id": 10,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Pakora",
     "donator": {
@@ -126,11 +125,11 @@
     },
     "quantity": 35,
     "location": "Mymensingh",
-    "expire": "2024-05-14T18:00:00",
+    "expire": "14.05.2024",
     "note": "Fried snack made with gram flour and vegetables."
   },
   {
-    "id": 11,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Fuchka",
     "donator": {
@@ -139,11 +138,11 @@
     },
     "quantity": 15,
     "location": "Jessore",
-    "expire": "2024-05-16T14:00:00",
+    "expire": "16.05.2024",
     "note": "Sweet yogurt dessert."
   },
   {
-    "id": 12,
+    "status": "available",
     "image": "https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp",
     "name": "Fuchka",
     "donator": {
@@ -152,7 +151,7 @@
     },
     "quantity": 25,
     "location": "Rajbari",
-    "expire": "2024-05-13T13:00:00",
+    "expire": "18.05.2024",
     "note": "Small, crispy shells filled with tangy tamarind water."
   }
 ]

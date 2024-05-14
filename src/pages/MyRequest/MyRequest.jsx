@@ -1,19 +1,19 @@
 import {Helmet} from "react-helmet-async";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.jsx";
+import useAuth from "@/hooks/useAuth.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import useAuth from "@/hooks/useAuth.jsx";
 
 const MyRequest = () => {
     const {user} = useAuth();
-    const [requests, setRequests] = useState([]);
+    const [items, setItems] = useState([]);
+    console.log(items)
 
+    const url = `https://food-hub-api-orpin.vercel.app/requests?email=${user?.email}`;
     useEffect(() => {
-        axios.get('https://food-hub-api-orpin.vercel.app/requests')
-            .then(res => setRequests(res.data))
-    }, []);
-
-    console.log(requests)
+        axios.get(url)
+        .then(res => setItems(res.data))
+    }, [url]);
 
     return (
         <>
@@ -35,7 +35,7 @@ const MyRequest = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {requests.map((food) => {
+                            {items.map((food) => {
                                 if (food.userEmail === user.email) {
                                     return (
                                         <TableRow key={food._id}>

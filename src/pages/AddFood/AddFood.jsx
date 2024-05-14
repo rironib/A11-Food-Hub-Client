@@ -22,7 +22,7 @@ const AddFood = () => {
         const newFood = {name, quantity, location, expire, note, image, status: 'Available', donorName, donorEmail, donorAvatar };
         // console.log(newFood);
 
-        axios.post('https://food-hub-api-orpin.vercel.app/foods/add', newFood)
+        axios.post('https://food-hub-api-orpin.vercel.app/foods', newFood)
             .then(() => {
                 toast.success('Food added successfully!');
                 form.reset();
