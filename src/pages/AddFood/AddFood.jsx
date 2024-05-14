@@ -82,17 +82,13 @@ const AddFood = () => {
                             <div className="mb-1">
                                 <span className="font-semibold text-lg">Image Link</span>
                             </div>
-                            <input type="text" name='image' defaultValue='https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp' placeholder="Enter food image link"
+                            <input type="text" name='image' placeholder="Enter food image link"
                                    className="w-full p-3 border outline-none rounded" required/>
                         </label>
                         <label className="w-full">
                             <div className="mb-1">
                                 <span className="font-semibold text-lg">Food Status</span>
                             </div>
-                            {/*<select name='status' className="w-full p-3 border outline-none rounded" disabled>*/}
-                            {/*    <option value='Available' selected>Available</option>*/}
-                            {/*    <option value="Unavailable">Unavailable</option>*/}
-                            {/*</select>*/}
                             <input type="text" name='status' defaultValue='Available' placeholder="Enter food status"
                                    className="w-full p-3 border outline-none rounded" disabled required/>
                         </label>
