@@ -38,7 +38,7 @@ const UpdateFood = () => {
     return (
         <>
             <Helmet>
-                <title>Food Hub | Add Food</title>
+                <title>Food Hub | {food.name ? food.name : 'Update Food'}</title>
             </Helmet>
             <div className='my-12'>
                 <div className='text-center mb-6'>
@@ -91,7 +91,7 @@ const UpdateFood = () => {
                             </div>
                             <select name='status' className="w-full p-3 border outline-none rounded" required>
                                 <option value='Available'>Available</option>
-                                <option value="Unavailable">Unavailable</option>
+                                <option value="Unavailable">Requested</option>
                             </select>
                         </label>
                     </div>
