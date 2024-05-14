@@ -1,10 +1,23 @@
 import {Helmet} from "react-helmet-async";
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useNavigate, useParams} from "react-router-dom";
+import {useEffect} from "react";
+import useAuth from "@/hooks/useAuth.jsx";
 
 const UpdateFood = () => {
     const food = useLoaderData();
+    const {user} = useAuth();
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    console.log(user.email, food.donorEmail, id, food._id)
+
+    useEffect(() => {
+        if (food._id !== id || food.donorEmail !== user.email) {
+            navigate('/manage')
+        }
+    }, [id, user, food, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,21 +28,21 @@ const UpdateFood = () => {
         const expire= form.expire.value;
         const note = form.note.value;
         const image = form.image.value;
+        const status = form.status.value;
         const donorName = form.donorName.value;
         const donorEmail = form.donorEmail.value;
         const donorAvatar = form.donorAvatar.value;
 
-        const updateFood = {name, quantity, location, expire, note, image, status: 'Available', donorName, donorEmail, donorAvatar };
-        // console.log(newFood);
+        const updateFood = {name, quantity, location, expire, note, image, status, donorName, donorEmail, donorAvatar };
+        // console.log(updateFood);
 
         axios.patch(`https://food-hub-api-orpin.vercel.app/foods/${food._id}`, updateFood)
             .then((res) => {
-                console.log(res.data);
-
-                if(res.data.modifiedCount  > 0) {
+                const result = res.data;
+                if(result.modifiedCount  > 0) {
                     toast.success('Food updated successfully!');
                 } else {
-                    toast.error(res.data.error.message);
+                    toast.error(result.error.message);
                 }
             })
             .catch(error => toast.error(error));
@@ -91,7 +104,7 @@ const UpdateFood = () => {
                             </div>
                             <select name='status' className="w-full p-3 border outline-none rounded" required>
                                 <option value='Available'>Available</option>
-                                <option value="Unavailable">Requested</option>
+                                <option value="Requested">Requested</option>
                             </select>
                         </label>
                     </div>
