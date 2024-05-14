@@ -3,14 +3,25 @@ import {useLoaderData} from "react-router-dom";
 import Card from "@/components/Card.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {RiLayoutGrid2Fill, RiLayoutGridFill, RiSortAsc, RiSortDesc} from "react-icons/ri";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Loading from "@/components/Loading.jsx";
 
 const AvailableFood = () => {
+    const [loading, setLoading] = useState(true);
     const foods = useLoaderData();
     const filteredFoods = foods.filter(food => food.status === 'Available');
     const [items, setItems] = useState(filteredFoods);
     const [searchTerm, setSearchTerm] = useState("");
     const [grid, setGrid] = useState(false);
+
+    useEffect(() => {
+        if(items.length > 0){
+            const timeOut = setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+            return () => clearTimeout(timeOut);
+        }
+    }, [items]);
 
     const handleGrid = () => setGrid(!grid);
 
@@ -77,11 +88,13 @@ const AvailableFood = () => {
                         <Button onClick={() => handleSorting('dsc')} disabled={dsc}><RiSortDesc/></Button>
                     </div>
                 </div>
-                <div className={`grid ${grid ? 'md:grid-cols-2 md:gap-12' : 'grid-cols-2 md:grid-cols-3'} gap-5`}>
-                    {
-                        items.map(food => <Card key={food._id} food={food}/>)
-                    }
-                </div>
+                { loading ? <Loading/> : (
+                    <div className={`grid ${grid ? 'md:grid-cols-2 md:gap-12' : 'grid-cols-2 md:grid-cols-3'} gap-5`}>
+                        {
+                            items.map(food => <Card key={food._id} food={food}/>)
+                        }
+                    </div>
+                )}
             </div>
         </>
     );
