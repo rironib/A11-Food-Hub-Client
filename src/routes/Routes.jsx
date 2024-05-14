@@ -8,6 +8,9 @@ import AvailableFood from "@/pages/AvailableFood/AvailableFood.jsx";
 import AddFood from "@/pages/AddFood/AddFood.jsx";
 import ManageFood from "@/pages/ManageFood/ManageFood.jsx";
 import MyRequest from "@/pages/MyRequest/MyRequest.jsx";
+import SingleFood from "@/pages/SingleFood/SingleFood.jsx";
+import PrivateRoute from "@/routes/PrivateRoute.jsx";
+import UpdateFood from "@/pages/UpdateFood/UpdateFood.jsx";
 
 const router = createBrowserRouter([
     {
@@ -18,7 +21,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home/>,
-                loader: () => fetch('/foods.json')
+                loader: () => fetch('https://food-hub-api-orpin.vercel.app/foods')
             },
             {
                 path: '/login',
@@ -30,19 +33,31 @@ const router = createBrowserRouter([
             },
             {
                 path: '/available',
-                element: <AvailableFood/>
+                element: <AvailableFood/>,
+                loader: () => fetch('https://food-hub-api-orpin.vercel.app/foods')
             },
             {
                 path: '/add',
-                element: <AddFood/>
+                element: <PrivateRoute><AddFood/></PrivateRoute>
             },
             {
                 path: '/manage',
-                element: <ManageFood/>
+                element: <PrivateRoute><ManageFood/></PrivateRoute>
+            },
+            {
+                path: '/update/:id',
+                element: <PrivateRoute><UpdateFood/></PrivateRoute>,
+                loader: ({params}) => fetch(`https://food-hub-api-orpin.vercel.app/foods/${params.id}`)
             },
             {
                 path: '/request',
-                element: <MyRequest/>
+                element: <PrivateRoute><MyRequest/></PrivateRoute>,
+                loader: () => fetch('https://food-hub-api-orpin.vercel.app/requsts')
+            },
+            {
+                path: '/food/:id',
+                element: <PrivateRoute><SingleFood/></PrivateRoute>,
+                loader: ({params}) => fetch(`https://food-hub-api-orpin.vercel.app/foods/${params.id}`)
             }
         ]
     }
