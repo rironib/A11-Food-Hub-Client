@@ -28,7 +28,7 @@ const Modal = ({food}) => {
 
         axios.post('https://food-hub-api-orpin.vercel.app/requests/add', newRequest)
             .then(() => {
-                axios.put(`https://food-hub-api-orpin.vercel.app/foods/status/${_id}`, {status: 'Requested'})
+                axios.patch(`https://food-hub-api-orpin.vercel.app/foods/status/${_id}`, {status: 'Requested'})
                     .then(() => {
                         navigate('/request');
                         toast.success('Food Request Successful!');
