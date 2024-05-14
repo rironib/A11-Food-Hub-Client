@@ -42,7 +42,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/manage',
-                element: <PrivateRoute><ManageFood/></PrivateRoute>
+                element: <PrivateRoute><ManageFood/></PrivateRoute>,
+                loader: () => fetch('https://food-hub-api-orpin.vercel.app/foods')
             },
             {
                 path: '/update/:id',
