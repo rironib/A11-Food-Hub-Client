@@ -4,11 +4,11 @@ import {FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter} from "react-icons/fa6
 const Footer = () => {
     return (
         <footer className="bg-slate-800 text-white">
-            <div className='w-11/12 lg:w-10/12 max-w-[1275px] mx-auto py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10 lg:gap-6'>
+            <div className='w-11/12 lg:w-10/12 max-w-[1275px] mx-auto py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10 lg:gap-10'>
                 <div className='xl:col-span-2 text-center sm:text-start'>
                     <h2 className='text-3xl font-lexend font-bold'>Food Hub</h2>
-                    <p className='mt-4 text-slate-300'>
-                        Your Ultimate Destination for Food Sharing and Community Engagement!
+                    <p className='mt-4 sm:text-justify text-slate-300'>
+                        Food Hub is Bangladesh’s leading community food sharing website, promoting neighborly connections and reducing waste. Free and easy to use, our platform encourages sharing surplus food to foster a supportive and sustainable community.
                     </p>
                 </div>
                 <div className='text-center sm:text-start'>
