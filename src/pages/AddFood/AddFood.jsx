@@ -38,11 +38,6 @@ const AddFood = () => {
             <div className='my-12'>
                 <div className='text-center mb-6'>
                     <h3 className='text-4xl font-bold font-lexend text-slate-800'>Add New Food</h3>
-                    <p className='w-4/5 lg:w-2/3 mx-auto text-[#1B1A1AB3] my-5'>
-                        It is a long established fact that a reader will be distraceted by the readable content of a
-                        page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                        more-or-less normal distribution of letters, as opposed to using Content here.
-                    </p>
                 </div>
                 <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <div className='grid lg:grid-cols-2 gap-6'>
