@@ -34,6 +34,8 @@ Want to contribute to Food Hub? Fork the repository, make your changes, and subm
 - React Toastify
 - TanStack Query
 - Firebase
+- React Hook Form [Newsletter]
+- Framer-motion [Card Component]
 
 ---
 
