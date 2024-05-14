@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import {RiLayoutGrid2Fill, RiLayoutGridFill} from "react-icons/ri";
 import {Button} from "@/components/ui/button.jsx";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const FoodList = ({foods}) => {
     const [grid, setGrid] = useState(false);
+
+    const filteredFoods = foods.filter(food => food.status === 'Available');
+    const sortedFoods = filteredFoods.sort((a, b) => b.quantity - a.quantity);
+    const updatedFoods = sortedFoods.slice(0,6);
 
     const handleGrid = () => setGrid(!grid);
 
@@ -21,8 +26,13 @@ const FoodList = ({foods}) => {
             </div>
             <div className={`grid ${grid ? 'grid-cols-2' : 'grid-cols-3'} gap-5`}>
                 {
-                    foods.map(food => <Card key={food.id} food={food} />)
+                    updatedFoods.map(food => <Card key={food._id} food={food}/>)
                 }
+            </div>
+            <div className='mt-8 text-center'>
+                <Link to='/available' className='bg-slate-900 text-white px-6 py-3 rounded-lg'>
+                    See All Foods
+                </Link>
             </div>
         </div>
     );
