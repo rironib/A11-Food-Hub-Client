@@ -3,11 +3,9 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    // CarouselNext,
-    // CarouselPrevious,
 } from "@/components/ui/carousel"
 
-const Banner = () => {
+const Slider = () => {
     return (
         <Carousel
             className='mt-8 mb-20'
@@ -22,15 +20,10 @@ const Banner = () => {
                 <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/fzgozlyf/img81384.whqc_1320x880q80.webp)'}}></CarouselItem>
                 <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/dpiigoaq/img85513.whqc_1320x880q80.webp)'}}></CarouselItem>
                 <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/wzbdfu0k/img81553.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/t4fmlnq5/img81381.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/ev5b4352/img85514.whqc_1320x880q80.webp)'}}></CarouselItem>
-                <CarouselItem style={{backgroundImage: 'url(https://media-cdn2.greatbritishchefs.com/media/x1ifrwul/img81389.whqc_1320x880q80.webp)'}}></CarouselItem>
             </CarouselContent>
-            {/*<CarouselPrevious />*/}
-            {/*<CarouselNext />*/}
         </Carousel>
 
     );
 };
 
-export default Banner;
+export default Slider;
