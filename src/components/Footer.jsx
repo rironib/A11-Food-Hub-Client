@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className='xl:col-span-2 text-center sm:text-start'>
                     <h2 className='text-3xl font-lexend font-bold'>Food Hub</h2>
                     <p className='mt-4 sm:text-justify text-slate-300'>
-                        Food Hub is Bangladesh’s leading community food sharing website, promoting neighborly connections and reducing waste. Free and easy to use, our platform encourages sharing surplus food to foster a supportive and sustainable community.
+                        Food Hub is Bangladesh’s leading community food sharing website, promoting neighborly connections and reducing waste.
                     </p>
                 </div>
                 <div className='text-center sm:text-start'>
