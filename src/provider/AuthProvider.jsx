@@ -52,15 +52,28 @@ const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (!currentUser && !user) return;
+            const userEmail = currentUser?.email || user?.email || '';
+            const loggedUser = { email: userEmail };
+
             setUser(currentUser);
-            console.log('current user', currentUser);
+            // console.log(currentUser);
+
             setLoading(false);
+
+            try {
+                if (currentUser) {
+                    axios.post('https://food-hub-api-orpin.vercel.app/jwt', loggedUser, { withCredentials: true }).then();
+                } else {
+                    axios.post('https://food-hub-api-orpin.vercel.app/logout', loggedUser, { withCredentials: true }).then();
+                }
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
         });
-        return () => {
-            return unsubscribe();
-        }
-    }, [])
+        return () => unsubscribe();
+    }, [user]);
 
     const value = {user, loading, createUser, updateUser, signIn, signInWithGoogle, signInWithGithub, logOut}
 
