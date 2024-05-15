@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import cover from '/8610492_5964.jpg';
 
 const Newsletter = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -27,7 +28,7 @@ const Newsletter = () => {
 
     return (
         <div className='grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 min-h-96 mb-20 dark:bg-gray-800 border dark:border-slate-700 overflow-clip rounded-xl'>
-            <div className='bg-[url("https://media-cdn2.greatbritishchefs.com/media/ribbanef/img81602.whqc_2044x1362q80.webp")] bg-cover bg-no-repeat bg-center'>
+            <div style={{backgroundImage: `url(${cover})`}} className='bg-cover bg-no-repeat bg-center'>
             </div>
             <form onSubmit={handleSubmit(onSubmit, onError)} className='w-full lg:w-3/4 mx-auto flex flex-col items-center justify-center gap-6 p-8'>
                 <h2 className='font-bold text-3xl text-center'>
