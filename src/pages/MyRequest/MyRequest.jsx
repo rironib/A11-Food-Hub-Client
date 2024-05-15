@@ -1,24 +1,32 @@
-import {Helmet} from "react-helmet-async";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.jsx";
+import { Helmet } from "react-helmet-async";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.jsx";
 import useAuth from "@/hooks/useAuth.jsx";
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/Loading.jsx";
+import useAxiosSecure from "@/hooks/useAxiosSecure.jsx";
 
 const MyRequest = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
-    const url = `https://food-hub-api-orpin.vercel.app/requests?email=${user?.email}`;
+    const url = `/requests?email=${user?.email}`;
 
-    const {isPending, data : items} = useQuery({
-        queryKey: ['food'],
+    const { isLoading, data: items, error } = useQuery({
+        queryKey: ['food', user?.email],
         queryFn: async () => {
-            const res = await fetch(url);
-            return res.json();
-        }
-    })
+            const response = await axiosSecure.get(url);
+            return response.data;
+        },
+        staleTime: 60000, // 1 minute
+        cacheTime: 300000, // 5 minutes
+    });
 
-    if (isPending) {
-        return <Loading/>
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
     }
 
     return (
@@ -41,19 +49,16 @@ const MyRequest = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {
-                                items?.map((food) => (
-                                        <TableRow key={food._id}>
-                                            <TableCell>{food.name}</TableCell>
-                                            <TableCell>{food.quantity}</TableCell>
-                                            <TableCell>{food.location}</TableCell>
-                                            <TableCell>{food.expire}</TableCell>
-                                            <TableCell>{food.reqDate}</TableCell>
-                                            <TableCell>{food.donorName}</TableCell>
-                                        </TableRow>
-                                    )
-                                )
-                            }
+                            {items?.map((food) => (
+                                <TableRow key={food._id}>
+                                    <TableCell>{food.name}</TableCell>
+                                    <TableCell>{food.quantity}</TableCell>
+                                    <TableCell>{food.location}</TableCell>
+                                    <TableCell>{new Date(food.expire).toLocaleDateString()}</TableCell>
+                                    <TableCell>{new Date(food.reqDate).toLocaleDateString()}</TableCell>
+                                    <TableCell>{food.donorName}</TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </div>

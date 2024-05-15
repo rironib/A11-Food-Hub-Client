@@ -6,18 +6,25 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {Helmet} from "react-helmet-async";
+import useAxiosSecure from "@/hooks/useAxiosSecure.jsx";
 
 const ManageFood = () => {
     const {user} = useAuth();
     const [items, setItems] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
-    const url = `https://food-hub-api-orpin.vercel.app/manage?email=${user?.email}`;
+    // const url = `https://food-hub-api-orpin.vercel.app/manage?email=${user?.email}`;
+    const url = `/manage?email=${user?.email}`;
     useEffect(() => {
-        axios.get(url)
-            .then(res => setItems(res.data))
-    }, [url]);
+        // axios.get(url, {withCredentials: true})
+        //     .then(res => setItems(res.data))
+        //     .catch(err => console.log(err));
 
-    const handleDelete = id => {
+        axiosSecure.get(url)
+            .then(res => setItems(res.data))
+    }, [url, axiosSecure]);
+
+    const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
