@@ -100,7 +100,7 @@ const AddFood = () => {
                             <div className="mb-1">
                                 <span className="font-semibold text-lg">Your Email</span>
                             </div>
-                            <input type="email" name='donorEmail' defaultValue={user?.email} placeholder="Enter food quantity"
+                            <input type="email" name='donorEmail' defaultValue={user?.email} placeholder="Enter your email"
                                    className="w-full p-3 border outline-none rounded" required/>
                         </label>
                     </div>
