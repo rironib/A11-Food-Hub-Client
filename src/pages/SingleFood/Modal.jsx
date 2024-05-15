@@ -46,8 +46,8 @@ const Modal = ({food}) => {
         <>
             <Button onClick={handleRequest} disabled={food.status !== 'Available' && 'disabled'}>Request</Button>
             {isOpen && (
-                <div className='fixed z-20 inset-0 bg-slate-900 bg-opacity-70 flex flex-col items-center justify-center p-4'>
-                    <div className='lg:w-3/5 bg-white p-6 lg:px-12 rounded-xl'>
+                <div className='fixed z-20 inset-0 bg-slate-900 bg-opacity-70 flex flex-col items-center justify-center overflow-y-auto p-2'>
+                    <div className='lg:w-3/5 bg-white p-4 sm:p-8 lg:px-12 rounded-xl'>
                         <h2 className='font-bold font-lexend text-3xl text-center mb-4'>Request</h2>
                         <form onSubmit={handleSubmit} className='grid gap-2'>
                             <div className='grid grid-cols-2 gap-2'>
