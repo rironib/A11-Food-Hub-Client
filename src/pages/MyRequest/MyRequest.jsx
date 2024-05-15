@@ -11,17 +11,17 @@ const MyRequest = () => {
 
     const url = `/requests?email=${user?.email}`;
 
-    const { isLoading, data: items, error } = useQuery({
+    const { isPending, data: items, error } = useQuery({
         queryKey: ['food', user?.email],
         queryFn: async () => {
             const response = await axiosSecure.get(url);
             return response.data;
         },
-        staleTime: 60000, // 1 minute
-        cacheTime: 300000, // 5 minutes
+        staleTime: 60000,
+        cacheTime: 300000,
     });
 
-    if (isLoading) {
+    if (isPending) {
         return <Loading />;
     }
 
