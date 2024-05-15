@@ -13,13 +13,8 @@ const ManageFood = () => {
     const [items, setItems] = useState([]);
     const axiosSecure = useAxiosSecure();
 
-    // const url = `https://food-hub-api-orpin.vercel.app/manage?email=${user?.email}`;
     const url = `/manage?email=${user?.email}`;
     useEffect(() => {
-        // axios.get(url, {withCredentials: true})
-        //     .then(res => setItems(res.data))
-        //     .catch(err => console.log(err));
-
         axiosSecure.get(url)
             .then(res => setItems(res.data))
     }, [url, axiosSecure]);
