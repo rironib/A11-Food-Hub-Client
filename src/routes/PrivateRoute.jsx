@@ -4,20 +4,22 @@ import useAuth from "../hooks/useAuth.jsx";
 import Loading from "@/components/Loading.jsx";
 
 const PrivateRoute = ({children}) => {
-    const {user} = useAuth();
+    const {user, loading} = useAuth();
     const location = useLocation();
 
-    if (!user) {
-        return <Navigate state={location.pathname} to='/login'/>
-    } else {
+    if (loading) {
+        return (
+            <div className='flex justify-center items-center'>
+                <Loading/>
+            </div>
+        );
+    }
+
+    if (user) {
         return children;
     }
 
-    return (
-        <div className='flex justify-center items-center'>
-            <Loading/>
-        </div>
-    );
+    return <Navigate state={location.pathname} to='/login'/>;
 };
 
 PrivateRoute.propTypes = {
