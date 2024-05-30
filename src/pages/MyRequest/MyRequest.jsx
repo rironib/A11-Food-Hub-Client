@@ -1,46 +1,42 @@
 import { Helmet } from "react-helmet-async";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.jsx";
 import useAuth from "@/hooks/useAuth.jsx";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "@/components/Loading.jsx";
 import useAxiosSecure from "@/hooks/useAxiosSecure.jsx";
 import ReactPaginate from 'react-paginate';
-import {useState} from "react";
+import { useEffect, useState } from "react";
 
 const MyRequest = () => {
+    // Authentication hook
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
-
+    // State for storing fetched items
+    const [items, setItems] = useState([]);
+    // State for total number of items
+    const [totalItems, setTotalItems] = useState(0);
+    // State for current page
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 5;
+    // Number of items to display per page
+    const [itemsPerPage] = useState(10);
+    // Axios instance for secure requests
+    const axiosSecure = useAxiosSecure();
+    // Calculate total number of pages
+    const pageCount = Math.ceil(totalItems / itemsPerPage);
 
+    // URL for fetching data
     const url = `/requests?email=${user?.email}&page=${currentPage}&limit=${itemsPerPage}`;
 
-    const { isLoading, data, error } = useQuery({
-        queryKey: ['food', user?.email, currentPage],
-        queryFn: async () => {
-            const response = await axiosSecure.get(url);
-            return response.data;
-        },
-        staleTime: 60000,
-        cacheTime: 300000,
-    });
+    // Fetch data when component mounts or dependencies change
+    useEffect(() => {
+        axiosSecure.get(url)
+            .then(res => {
+                setItems(res.data.items);
+                setTotalItems(res.data.totalItems);
+            });
+    }, [url, currentPage, itemsPerPage, axiosSecure]);
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
-
+    // Function to handle page clicks
     const handlePageClick = (data) => {
         setCurrentPage(data.selected);
-    }
-
-    const items = data.items;
-    const totalItems = data.totalItems;
-    const pageCount = Math.ceil(totalItems / itemsPerPage);
+    };
 
     return (
         <>

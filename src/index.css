@@ -97,12 +97,15 @@
   font-weight: 500;
 }
 .pagination li {
-  padding: 4px 8px;
+  padding: 0.25rem 0.5rem;
   border-width: 2px;
+  border-radius: 0.25rem;
 }
 .pagination .active {
-  background-color: deepskyblue;
+  background-color: #000000;
   color: #fff;
+  border-color: #000000;
+  pointer-events: none;
 }
 .pagination .disabled {
   pointer-events: none;
