@@ -87,3 +87,23 @@
   padding: 0.25rem .5rem;
   border-radius: .25rem;
 }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+.pagination li {
+  padding: 4px 8px;
+  border-width: 2px;
+}
+.pagination .active {
+  background-color: deepskyblue;
+  color: #fff;
+}
+.pagination .disabled {
+  pointer-events: none;
+}

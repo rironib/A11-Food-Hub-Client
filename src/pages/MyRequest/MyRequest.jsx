@@ -4,14 +4,19 @@ import useAuth from "@/hooks/useAuth.jsx";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/Loading.jsx";
 import useAxiosSecure from "@/hooks/useAxiosSecure.jsx";
+import ReactPaginate from 'react-paginate';
+import {useState} from "react";
 
 const MyRequest = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const url = `/requests?email=${user?.email}`;
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 5;
 
-    const { isPending, data: items, error } = useQuery({
+    const url = `/requests?email=${user?.email}&page=${currentPage}&limit=${itemsPerPage}`;
+
+    const { isLoading, data, error } = useQuery({
         queryKey: ['food', user?.email],
         queryFn: async () => {
             const response = await axiosSecure.get(url);
@@ -21,13 +26,21 @@ const MyRequest = () => {
         cacheTime: 300000,
     });
 
-    if (isPending) {
+    if (isLoading) {
         return <Loading />;
     }
 
     if (error) {
         return <div>Error: {error.message}</div>;
     }
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    }
+
+    const items = data.items;
+    const totalItems = data.totalItems;
+    const pageCount = Math.ceil(totalItems / itemsPerPage);
 
     return (
         <>
@@ -36,7 +49,7 @@ const MyRequest = () => {
             </Helmet>
             <div className="w-full mt-12 mb-20">
                 <h2 className='font-bold text-3xl text-center mb-6'>Requested Foods</h2>
-                <div className="rounded-md border">
+                <div className="mb-8 rounded-md border">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -62,6 +75,19 @@ const MyRequest = () => {
                         </TableBody>
                     </Table>
                 </div>
+                <ReactPaginate
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"border"}
+                    activeClassName={"active"}
+                />
             </div>
         </>
     );
