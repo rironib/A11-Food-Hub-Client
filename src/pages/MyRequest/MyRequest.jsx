@@ -17,7 +17,7 @@ const MyRequest = () => {
     const url = `/requests?email=${user?.email}&page=${currentPage}&limit=${itemsPerPage}`;
 
     const { isLoading, data, error } = useQuery({
-        queryKey: ['food', user?.email],
+        queryKey: ['food', user?.email, currentPage],
         queryFn: async () => {
             const response = await axiosSecure.get(url);
             return response.data;
