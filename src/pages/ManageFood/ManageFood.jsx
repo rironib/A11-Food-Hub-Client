@@ -7,17 +7,31 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {Helmet} from "react-helmet-async";
 import useAxiosSecure from "@/hooks/useAxiosSecure.jsx";
+import ReactPaginate from 'react-paginate';
 
 const ManageFood = () => {
     const {user} = useAuth();
     const [items, setItems] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage] = useState(10);
+    const pageCount = Math.ceil(totalItems / itemsPerPage);
     const axiosSecure = useAxiosSecure();
 
-    const url = `/manage?email=${user?.email}`;
+    const url = `/manage?email=${user?.email}&page=${currentPage}&limit=${itemsPerPage}`;
+
     useEffect(() => {
         axiosSecure.get(url)
-            .then(res => setItems(res.data))
+            .then(res => {
+                console.log(res.data)
+                setItems(res.data?.items);
+                setTotalItems(res.data?.totalItems);
+            })
     }, [url, axiosSecure]);
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    }
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -56,6 +70,8 @@ const ManageFood = () => {
         });
     }
 
+    console.log(items)
+
     return (
         <>
             <Helmet>
@@ -63,7 +79,7 @@ const ManageFood = () => {
             </Helmet>
             <div className="w-full mt-12 mb-20">
                 <h2 className='font-bold text-3xl text-center mb-6'>Manage Foods</h2>
-                <div className="rounded-md border">
+                <div className="mb-8 rounded-md border">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -99,6 +115,19 @@ const ManageFood = () => {
                         </TableBody>
                     </Table>
                 </div>
+                <ReactPaginate
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"border"}
+                    activeClassName={"active"}
+                />
             </div>
         </>
     )
