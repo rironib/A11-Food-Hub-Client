@@ -9,7 +9,7 @@ const PrivateRoute = ({children}) => {
 
     if (loading) {
         return (
-            <div className='flex justify-center items-center'>
+            <div className="flex justify-center items-center">
                 <Loading/>
             </div>
         );
@@ -19,11 +19,11 @@ const PrivateRoute = ({children}) => {
         return children;
     }
 
-    return <Navigate state={location.pathname} to='/login'/>;
+    return <Navigate to="/login" state={{from: location}} replace/>;
 };
 
 PrivateRoute.propTypes = {
     children: PropTypes.node.isRequired,
-}
+};
 
 export default PrivateRoute;

@@ -2,7 +2,7 @@ import Header from "@/components/Header.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Outlet} from "react-router-dom";
 
-const Root = () => {
+const RootLayout = () => {
     return (
         <>
             <div className='min-h-screen flex flex-col justify-between'>
@@ -18,4 +18,4 @@ const Root = () => {
     );
 };
 
-export default Root;
+export default RootLayout;
